@@ -7,7 +7,7 @@ C.slides.forEach(function(s,i){h+='<div class="card"><h3>'+(i+1)+'. '+esc(s.t)+'
 h+='<h2>이해도 퀴즈</h2><p class="lead" style="font-size:16px">5문항 중 4개 이상 맞히면 이수됩니다.</p>';
 C.quiz.forEach(function(q,i){h+='<div class="q"><b>Q'+(i+1)+'. '+esc(q.q)+'</b>'+q.o.map(function(o,j){return '<label class="opt"><input type="radio" name="q'+i+'" value="'+j+'"><span>'+esc(o)+'</span></label>'}).join('')+'</div>'});
 h+='<div class="q"><b>이수자 정보</b><input class="tx" id="nm" placeholder="성명"><input class="tx" id="og" placeholder="소속 (업체 · 팀 · 부스명)"></div><button class="btn block" type="button" onclick="grade()" style="width:100%">제출하고 이수 확인 받기</button><div id="res"></div>';
-v.innerHTML=h;
+v.innerHTML=h;var NN=new URLSearchParams(location.search).get('n');if(NN)document.getElementById('nm').value=NN;
 function grade(){var nm=document.getElementById('nm').value.trim(),og=document.getElementById('og').value.trim();if(!nm||!og){alert('성명과 소속을 입력해 주세요.');return}
  var sc=0;C.quiz.forEach(function(q,i){var r=document.querySelector('input[name=q'+i+']:checked');if(r&&+r.value===q.a)sc++});
  var r=document.getElementById('res');
