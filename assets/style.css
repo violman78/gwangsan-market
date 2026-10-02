@@ -86,3 +86,52 @@ input.tx{font:inherit;width:100%;padding:13px 14px;border-radius:12px;border:1px
 .cert table td,.cert table th{border:1px solid #d2d2d7;color:#000}
 @media (min-width:700px){.hero h1{font-size:56px}h1{font-size:40px}}
 @media print{.nav,.sheet,.noprint,.footer{display:none!important}body{background:#fff;color:#000}.card,.list,details.seg{box-shadow:none;border:1px solid #ccc}details.seg>.bd{display:block}}
+/* ───── 긴급공지 ───── */
+#alertOv{position:fixed;inset:0;z-index:999;background:rgba(120,0,0,.92);display:flex;align-items:center;justify-content:center;padding:24px;animation:alflash 1s infinite}
+@keyframes alflash{0%,100%{background:rgba(120,0,0,.94)}50%{background:rgba(200,20,20,.94)}}
+.al-box{background:var(--card);color:var(--ink);border-radius:24px;padding:26px 22px;width:100%;max-width:520px;text-align:center}
+.al-k{font-size:15px;font-weight:700;color:#d70015;letter-spacing:-.01em}
+.al-t{font-size:26px;line-height:1.35;font-weight:700;letter-spacing:-.02em;margin:14px 0 22px;white-space:pre-wrap;word-break:keep-all}
+.al-ok{font:inherit;font-size:19px;font-weight:700;width:100%;border:0;border-radius:99px;background:#d70015;color:#fff;padding:16px}
+.al-s{font-size:13px;color:var(--ink2);margin-top:14px}
+/* ───── 내 위치 지도 ───── */
+.mapbox{position:relative;height:340px;border-radius:16px;overflow:hidden;background:#e8e8ed;margin:14px 0 6px;touch-action:none;user-select:none}
+.mapbox .inner{position:absolute;left:0;top:0;transform-origin:0 0;will-change:transform}
+.mapbox img{display:block;max-width:none;pointer-events:none}
+.mk{position:absolute;width:0;height:0}
+.mk i{position:absolute;left:-17px;top:-17px;width:34px;height:34px;border-radius:50%;border:4px solid #ffd60a;background:rgba(255,59,48,.35);box-shadow:0 0 0 2px #ff3b30;animation:pulse 1.6s infinite}
+.mk b{position:absolute;left:0;bottom:24px;transform:translateX(-50%);white-space:nowrap;background:#1d1d1f;color:#fff;font-size:12px;font-weight:700;padding:3px 9px;border-radius:99px}
+@keyframes pulse{0%{box-shadow:0 0 0 2px #ff3b30,0 0 0 2px rgba(255,59,48,.6)}70%{box-shadow:0 0 0 2px #ff3b30,0 0 0 18px rgba(255,59,48,0)}100%{box-shadow:0 0 0 2px #ff3b30,0 0 0 2px rgba(255,59,48,0)}}
+.mapctl{display:flex;gap:8px;margin:0 0 4px;flex-wrap:wrap}
+.mapctl button{font:inherit;font-size:14px;font-weight:600;background:var(--soft);color:var(--blue);border:0;border-radius:99px;padding:8px 16px;cursor:pointer}
+/* ───── 하단 캡처 바 ───── */
+.capbar{position:fixed;left:0;right:0;bottom:0;z-index:60;padding:10px 20px calc(10px + env(safe-area-inset-bottom));background:var(--nav);-webkit-backdrop-filter:saturate(180%) blur(20px);backdrop-filter:saturate(180%) blur(20px);border-top:.5px solid var(--line);display:none}
+.capbar.on{display:block}.capbar .btn{display:block;width:100%;max-width:720px;margin:0 auto;text-align:center}
+body.hascap{padding-bottom:96px}
+#capOv{position:fixed;inset:0;z-index:998;background:rgba(0,0,0,.86);display:flex;flex-direction:column;align-items:center;padding:20px;overflow:auto}
+#capOv img{max-width:100%;border-radius:12px;background:#fff}
+#capOv .t{color:#fff;font-size:14px;margin:0 0 12px;text-align:center}
+#capOv .r{display:flex;gap:10px;margin-top:14px}
+/* ───── 채팅 ───── */
+.msgs{display:flex;flex-direction:column;gap:10px;margin:14px 0 150px}
+.msg{background:var(--card);border-radius:18px;padding:12px 16px;max-width:92%}
+.msg.me{align-self:flex-end;background:var(--blue);color:#fff}
+.msg .h{font-size:12px;opacity:.7;margin-bottom:3px}
+.msg .x{white-space:pre-wrap;word-break:break-word}
+.msg img{width:100%;max-width:300px;border-radius:12px;margin-top:8px;display:block}
+.msg .del{font:inherit;font-size:12px;border:0;background:none;color:inherit;opacity:.7;margin-top:6px;cursor:pointer;padding:0}
+.composer{position:fixed;left:0;right:0;bottom:0;z-index:60;background:var(--nav);-webkit-backdrop-filter:saturate(180%) blur(20px);backdrop-filter:saturate(180%) blur(20px);border-top:.5px solid var(--line);padding:10px 16px calc(10px + env(safe-area-inset-bottom))}
+.composer .in{max-width:720px;margin:0 auto}
+.composer textarea{font:inherit;width:100%;border:1px solid var(--line);background:var(--card);color:var(--ink);border-radius:16px;padding:10px 14px;resize:none;height:46px}
+.composer .bar{display:flex;gap:8px;margin-top:8px;align-items:center}
+.composer .bar .btn{margin:0;padding:10px 20px;font-size:16px}
+.composer .nm{font:inherit;flex:1;min-width:0;border:1px solid var(--line);background:var(--card);color:var(--ink);border-radius:99px;padding:9px 14px;font-size:15px}
+.thumb{width:44px;height:44px;border-radius:10px;object-fit:cover}
+/* ───── 관리 ───── */
+.ed{width:100%;font:inherit;font-size:15px;border:1px solid var(--line);background:var(--card);color:var(--ink);border-radius:10px;padding:8px 10px}
+.edrow{display:grid;grid-template-columns:62px 62px 1fr;gap:6px;background:var(--card);border-radius:16px;padding:10px;margin:8px 0}
+.edrow .full{grid-column:1/-1}
+.edrow .acts{grid-column:1/-1;display:flex;gap:6px;flex-wrap:wrap}
+.edrow .acts button{font:inherit;font-size:13px;border:0;border-radius:99px;background:var(--soft);color:var(--blue);padding:6px 12px;cursor:pointer}
+.edrow .acts .d{background:var(--bad);color:var(--bad-ink)}
+.toast{position:fixed;left:50%;transform:translateX(-50%);bottom:calc(24px + env(safe-area-inset-bottom));z-index:900;background:#1d1d1f;color:#fff;font-size:15px;padding:12px 20px;border-radius:99px;box-shadow:0 8px 24px rgba(0,0,0,.25)}
