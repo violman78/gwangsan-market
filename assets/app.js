@@ -27,13 +27,6 @@
     if(isDay&&cur&&first&&document.getElementById('tl')&&document.getElementById('tl').getAttribute('data-all')==='1'){setTimeout(function(){cur.scrollIntoView({block:'center',behavior:'smooth'})},400)}
   }
   build();setInterval(mark,30000);
-  // 총괄이 일정을 수정하면 즉시 반영
-  if(window.Live&&Live.mode!=='off'){
-    Live.onSchedule(function(items){var prev=JSON.stringify(S);S=(items&&items.length)?items:DEF;build();if(!first&&JSON.stringify(S)!==prev)toast('총괄이 일정을 수정했습니다');first=false});
-    var ac=document.getElementById('alertCard');if(ac){ac.style.display='';var ab=document.getElementById('alertOn');
-      if(localStorage.getItem('alert_on')==='1'){ab.textContent='긴급 알림 켜짐 (진동 테스트)'}
-      ab.addEventListener('click',function(){Live.enableAlerts();ab.textContent='긴급 알림 켜짐 (진동 테스트)';toast('긴급 공지가 오면 진동과 함께 표시됩니다')})}
-  }
   var all=document.getElementById('toggleAll');
   if(all){all.addEventListener('click',function(){var ds=[].slice.call(document.querySelectorAll('details.seg')),open=ds.some(function(x){return !x.open});ds.forEach(function(x){x.open=open});all.textContent=open?'모두 접기':'모두 펼치기'})}
 })();

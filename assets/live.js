@@ -88,5 +88,5 @@
     if(a.id===seen())return; if(cur&&cur.id===a.id)return; show(a);
   }
   L.enableAlerts=function(){try{if(navigator.vibrate)navigator.vibrate([200,100,200])}catch(e){}try{if('Notification' in window&&Notification.permission==='default')Notification.requestPermission()}catch(e){}localStorage.setItem('alert_on','1')};
-  if(mode!=='off'){L.onAlert(onAlert);document.addEventListener('visibilitychange',function(){if(!document.hidden&&cur)buzz()})}
+  if(mode!=='off'&&window.ENABLE_ALERTS){L.onAlert(onAlert);document.addEventListener('visibilitychange',function(){if(!document.hidden&&cur)buzz()})}
 })();

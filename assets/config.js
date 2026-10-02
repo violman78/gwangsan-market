@@ -1,9 +1,10 @@
-// ▼ 총괄 서버(Firebase) 연결 설정 — FIREBASE_SETUP.md 안내대로 만든 값을 붙여 넣으세요.
-// 비워 두면(null) 일정은 기본값으로 표시되고, 긴급공지·공유 채팅·총괄 수정 기능은 "서버 연결 전" 상태가 됩니다.
-window.FIREBASE_CONFIG = null;
-/* 예)
+// 총괄 서버(Firebase) 연결 설정 — 프로젝트: gwangsan-market (FIREBASE_SETUP.md 참고)
+// apiKey는 공개되어도 되는 값이며, 접근 권한은 Firestore 보안 규칙으로 제한됩니다.
 window.FIREBASE_CONFIG = {
-  apiKey: "AIza...", authDomain: "프로젝트.firebaseapp.com", projectId: "프로젝트",
-  storageBucket: "프로젝트.appspot.com", messagingSenderId: "1234567890", appId: "1:1234567890:web:abcdef"
+  apiKey: "AIzaSyA1H8GiQxMclOrN76JYhektA7RU9h8EgWY",
+  authDomain: "gwangsan-market-269e8.firebaseapp.com",
+  projectId: "gwangsan-market-269e8",
+  storageBucket: "gwangsan-market-269e8.firebasestorage.app",
+  messagingSenderId: "139669461789",
+  appId: "1:139669461789:web:fd1a7db06282c2b11c5ff4"
 };
-*/

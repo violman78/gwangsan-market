@@ -18,9 +18,9 @@
     if(n.length>=2){for(var a in G.aliases){if(a.length>=2&&(a.indexOf(n)===0||n.indexOf(a)===0))return G.items[G.aliases[a]]}}return null}
   // ───── 지도(줌인) ─────
   function mapBlock(p){
-    var pts=(p.cards||[]).filter(function(c){return c.x!=null});if(!pts.length)return '';
+    var pts=(p.cards||[]).filter(function(c){return c.x!=null}).map(function(c){return{x:c.x,y:c.y,base:c.base,no:c.no}});(p.pins||[]).forEach(function(q){pts.push({x:q.x,y:q.y,base:q.b||'full',no:q.l})});if(!pts.length)return '';
     var id='mv'+Math.random().toString(36).slice(2,7);
-    return '<div class="mapbox" id="'+id+'" data-b="'+pts[0].base+'" data-p="'+esc(JSON.stringify(pts.map(function(c){return{x:c.x,y:c.y,b:c.base,l:c.no}})))+'"></div><div class="mapctl" data-for="'+id+'"><button type="button" data-a="me">내 위치</button><button type="button" data-a="in">확대</button><button type="button" data-a="out">축소</button><button type="button" data-a="all">전체 지도</button></div>';
+    return '<div class="mapbox" id="'+id+'" data-b="'+pts[0].base+'" data-p="'+esc(JSON.stringify(pts.map(function(c){return{x:c.x,y:c.y,b:c.base,l:c.no}})))+'"></div><div class="mapctl" data-for="'+id+'"><button type="button" data-a="me">내 위치</button><button type="button" data-a="in">확대</button><button type="button" data-a="out">축소</button><button type="button" data-a="all">전체 지도</button></div><p style="font-size:13px;color:var(--ink2);margin:6px 2px 0">지도의 핀 위치는 대략적인 표시입니다. 정확한 위치는 현장 안내와 총괄 지시를 따르세요.</p>';
   }
   function initMap(el){
     var pts=JSON.parse(el.getAttribute('data-p')),b0=el.getAttribute('data-b'),cfg=PT[b0];
@@ -52,14 +52,18 @@
   function render(list){
     var h='';
     list.forEach(function(p){
-      var kindLabel=p.kind==='team'?'출연 · 퍼레이드 팀':p.kind==='country'?'퍼레이드 참가단체':p.kind==='part'?'제작 파트':'내 역할';
+      var kindLabel=p.kind==='team'?'출연 · 퍼레이드 팀':p.kind==='country'?'퍼레이드 참가단체':p.kind==='part'?'제작 파트':p.kind==='org'?'주최 · 광산구청':'내 역할';
       h+='<div class="card" style="margin:12px 0 0"><div class="eyebrow">'+kindLabel+'</div><h3 style="font-size:26px;margin:2px 0 8px">'+esc(p.name)+(p.kind?'':' 님')+'</h3>';
       (p.notes||[]).forEach(function(n){h+='<div class="note info" style="margin:8px 0">'+esc(n)+'</div>'});
       h+=mapBlock(p);
       (p.cards||[]).forEach(function(c){
         h+='<div style="border-top:.5px solid var(--line);padding:12px 0 2px"><b>'+esc(c.part)+(c.no?' · '+esc(c.no):'')+'</b>'+(c.shift?' <span class="pill" style="margin-left:6px">'+esc(c.shift)+'</span>':'')+'<dl class="kv" style="margin-top:8px">'+(c.sym?'<dt>지도 기호</dt><dd>'+esc(c.sym)+'</dd>':'')+(c.loc?'<dt>위치</dt><dd>'+esc(c.loc)+'</dd>':'')+(c.time?'<dt>시간</dt><dd>'+esc(c.time)+'</dd>':'')+(c.role?'<dt>업무</dt><dd>'+esc(c.role)+'</dd>':'')+'</dl></div>';
       });
-      h+='<h3 style="margin:18px 0 8px">내가 받을 안전교육</h3><div class="list">';
+      var first=null;(p.edu||[]).forEach(function(k){if(!first&&!done(p.kind?'':p.name,k))first=k});
+      h+='<h3 style="margin:18px 0 8px">내가 받을 안전교육</h3>';
+      if(first)h+='<a class="btn block" href="'+base+'edu/course.html?c='+first+'&n='+encodeURIComponent(p.name)+'" style="margin-top:0">안전교육 시작하기</a>';
+      else h+='<div class="note ok">받아야 할 안전교육을 모두 이수했습니다.</div>';
+      h+='<div class="list">';
       (p.edu||[]).forEach(function(k){var nm=(window.EDU&&EDU[k])?EDU[k].name:k;var ok=done(p.kind?'':p.name,k);
         h+='<a class="row" href="'+base+'edu/course.html?c='+k+'&n='+encodeURIComponent(p.name)+'"><span class="t">'+esc(nm)+(k==='common'?' (필수 · 먼저)':'')+'</span><span class="s">'+(ok?'이수 완료':'읽고 이수 확인 · 약 '+((window.EDU&&EDU[k])?EDU[k].min:10)+'분')+'</span></a>'});
       h+='</div>';
@@ -69,7 +73,6 @@
     });
     out.innerHTML=h;
     [].forEach.call(out.querySelectorAll('.mapbox'),initMap);
-    if(window.Capture){Capture.bar(function(){return out},'내역할')}
   }
   async function go(auto){
     var v=inp.value.trim(); if(v.length<2){if(!auto)out.innerHTML='<div class="note warn">성명, 휴대폰 번호, 팀명, 나라명 또는 파트명을 입력해 주세요.</div>';return}
